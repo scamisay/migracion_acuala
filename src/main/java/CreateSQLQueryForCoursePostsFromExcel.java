@@ -1,6 +1,8 @@
+import database.MySQLConnection;
 import domain.CSVErrorInRow;
 import domain.CSVHeader;
 import domain.CVSReader;
+import domain.ErrorPrinter;
 import validator.CSVValidator;
 
 import java.util.Arrays;
@@ -15,14 +17,16 @@ public class CreateSQLQueryForCoursePostsFromExcel {
         CVSReader cvsReader = new CVSReader("/home/scamisay/test/test_peru_100.csv", ",");
         List<List<String>> rawRows = cvsReader.readRawRows(100 + 1);
         CSVHeader header = new CSVHeader(rawRows.get(0));
-        Integer offset = 1;
 
         /**
          * nombre de columnas que no pueden ser nulas
          */
         List<String> notNullColumns = Arrays.asList("categoryL1Id","categoryL2Id","categoryL3Id");
 
-        List<CSVErrorInRow> errors = new CSVValidator(header, notNullColumns).validate(rawRows,1);
+        MySQLConnection connection = new MySQLConnection();
+        connection.getIntResultsetQuery("select count(*) from coursecategoryl1");
+        new ErrorPrinter( new CSVValidator(header, notNullColumns), rawRows , header).print();
+
 
 
     }

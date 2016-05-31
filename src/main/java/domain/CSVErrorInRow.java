@@ -27,4 +27,12 @@ public class CSVErrorInRow {
     public void addError(CSVErrorType errors) {
         list.add(errors);
     }
+
+    public List<CSVErrorType> getErrorsInCol(){
+        return list;
+    }
+
+    public int getRow() {
+        return row;
+    }
 }

@@ -18,4 +18,12 @@ public class CSVErrorType {
     public boolean isEmpty(){
         return cols.isEmpty();
     }
+
+    public String getProblemType() {
+        return problemType;
+    }
+
+    public List<Integer> getCols() {
+        return cols;
+    }
 }
